@@ -1,7 +1,7 @@
 const generationsData = [
   {
     recipient: 'Коллеги',
-    complexity: 'Легкий',
+    complexity: 'Лёгкий',
     mood: 'Вдохновить',
     title: 'Рабочий нейрогороскоп',
     description:

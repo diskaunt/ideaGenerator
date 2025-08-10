@@ -1,7 +1,7 @@
 @font-face {
 	font-family: Ys-sans;
-	src: url('./assets/fonts/Yandex_Sans/YandexSansDisplay-Regular.woff2') format('woff2'),
-		url('./assets/fonts/Yandex_Sans/YandexSansDisplay-Regular.woff') format('woff');
+	src: url('assets/fonts/Yandex_Sans/YandexSansDisplay-Regular.woff2') format('woff2'),
+    url('assets/fonts/Yandex_Sans/YandexSansDisplay-Regular.woff') format('woff');
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -15,6 +15,7 @@
 	--bg-color: #1e1e1e;
 	--color-white: #fff;
 	--bg-color-popup: rgba(30, 30, 30, 0.26);
+	--bg-collor-button-disable: #D1D1D1;
 
 	/* Градиенты */
 	--gradient-green: linear-gradient(90deg, #ABF59B 0%, #ABF59B 48%, #B965FF 52%, #B965FF 100%);
@@ -310,7 +311,7 @@ body {
 	padding: 14px;
 	border: 1px solid var(--border-color);
 	border-radius: var(--border-radius);
-	background-image: url('/assets/images/mobile/color.jpg');
+	background-image: url('assets/images/mobile/color.jpg');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -345,6 +346,11 @@ body {
 	cursor: pointer;
 }
 
+.generator__submit:disabled {
+	color: var(--text-color);
+	background-color: var(--bg-collor-button-disable);
+}
+
 .generator__share {
 	display: flex;
 	width: 320px;
@@ -354,7 +360,7 @@ body {
 	flex-direction: column;
 	margin: auto;
 	padding: 31px 16px;
-	background-image: url(./assets/images/mobile/firstImage.jpg);
+	background-image: url(assets/images/mobile/firstImage.jpg);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -582,7 +588,7 @@ body {
 	}
 
 	.generator__color {
-		background-image: url('/assets/images/table/color.jpg');
+		background-image: url('assets/images/table/color.jpg');
 	}
 
 	.generator__color-button {
@@ -604,7 +610,7 @@ body {
 		min-height: 474px;
 		padding: 20px 20px;
 		justify-content: start;
-		background-image: url(./assets/images/table/firstImage.jpg);
+		background-image: url(assets/images/table/firstImage.jpg);
 	}
 
 	.generator__share-content {
@@ -750,7 +756,7 @@ body {
 	}
 
 	.generator__color {
-		background-image: url('/assets/images/dekstop/color.jpg');
+		background-image: url('assets/images/dekstop/color.jpg');
 	}
 
 	.generator__color-button {
@@ -768,7 +774,7 @@ body {
 		min-height: 490px;
 		padding: 22px 26px;
 		justify-content: start;
-		background-image: url(./assets/images/dekstop/firstImage.jpg);
+		background-image: url(assets/images/dekstop/firstImage.jpg);
 		border-radius: var(--border-radius);
 	}
 

@@ -22,9 +22,9 @@ export function changeTextElement(element, newText) {
 
 // Функция для "прилипания" к краям
 export function snapToEdge(button, text, newCoord, maxCoord, isHorizontal) {
-	if (isHorizontal) {
-		const boxShadowMin = '0 -24px 12px #ABF59B';
-		const boxShadowMax = '0 -24px 12px #B965FF';
+  if (isHorizontal) {
+    const boxShadowMin = '0 -24px 12px #ABF59B';
+    const boxShadowMax = '0 -24px 12px #B965FF';
     if (newCoord > maxCoord / 2) {
       button.style.left = maxCoord + 'px';
       button.style.boxShadow = boxShadowMax;
@@ -37,8 +37,8 @@ export function snapToEdge(button, text, newCoord, maxCoord, isHorizontal) {
       button.dataset.base = 'Лёгкий';
     }
   } else {
-		const boxShadowMin = '0 -12px 12px #ABF59B';
-		const boxShadowMax = '0 -12px 12px #B965FF';
+    const boxShadowMin = '0 -12px 12px #ABF59B';
+    const boxShadowMax = '0 -12px 12px #B965FF';
     if (newCoord < maxCoord / 2) {
       button.style.top = '0px';
       button.style.boxShadow = boxShadowMax;
@@ -51,6 +51,11 @@ export function snapToEdge(button, text, newCoord, maxCoord, isHorizontal) {
       button.dataset.base = 'Лёгкий';
     }
   }
+
+  // Проверяем изменения параметров после изменения сложности
+  // Создаем событие для уведомления об изменении сложности
+  // const changeEvent = new CustomEvent('difficultyChanged');
+  // document.dispatchEvent(changeEvent);
 }
 
 // функция изменяющая текст в окне в зависимости от выбранного человека
@@ -112,4 +117,21 @@ export function toggleActiveButton(clickedButton, buttonSelector, activeClass) {
 
   // Добавляем активный класс к нажатой кнопке
   clickedButton.classList.add(activeClass);
+}
+
+// Функция для получения текущих выбранных параметров
+export function getCurrentOptions() {
+  const recipient = document.querySelector(
+    '.generator__recipient-button--active'
+  );
+  const difficulty = document.querySelector('.generator__difficulty-button');
+  const color = document.querySelector('.generator__color-button--active');
+  const mood = document.querySelector('.generator__mood-button--active');
+
+  return {
+    recipient: recipient ? recipient.dataset.base : null,
+    complexity: difficulty ? difficulty.dataset.base : null,
+    color: color ? color.dataset.base : null,
+    mood: mood ? mood.dataset.base : null,
+  };
 }

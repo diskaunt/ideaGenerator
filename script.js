@@ -8,6 +8,7 @@ import {
   printText,
   snapToEdge,
   changeTextElement,
+  getCurrentOptions,
 } from './helpers.js';
 
 // Получаем все элементы
@@ -21,10 +22,10 @@ const difficultyButton = document.querySelector(
   '.generator__difficulty-button'
 );
 const difficultyText = document.querySelector('.generator__difficulty-text');
-const submitBtn = document.querySelector('.generator__submit');
 
-const SelectedOptions = {};
 let newShare = {}; // Выносим в глобальную область видимости
+let isSubmitDisabled = false; // Флаг для отслеживания состояния кнопки submit
+let lastSelectedOptions = {}; // Для отслеживания изменений параметров
 
 // Обработчик кликов по документу
 document.addEventListener('click', (event) => {
@@ -38,6 +39,7 @@ document.addEventListener('click', (event) => {
       'generator__recipient-button--active'
     );
     rectangleRecipeChanger(target.textContent);
+    checkOptionsChanged();
   }
 
   // Обработака кнопки выбора сложности
@@ -45,7 +47,7 @@ document.addEventListener('click', (event) => {
     target.classList.contains('generator__difficulty-button') ||
     target.closest('.generator__difficulty-button')
   ) {
-    console.log('difficultyButton');
+    checkOptionsChanged();
   }
 
   // Обработка кнопок настроения
@@ -69,6 +71,7 @@ document.addEventListener('click', (event) => {
       }
     });
     addTextToElement(moodButton, moodButton.getAttribute('data-text'));
+    checkOptionsChanged();
   }
 
   // Обработка кнопок цвета
@@ -78,6 +81,7 @@ document.addEventListener('click', (event) => {
       '.generator__color-button',
       'generator__color-button--active'
     );
+    checkOptionsChanged();
   }
 
   // Обработка кнопки сабмита
@@ -88,6 +92,7 @@ document.addEventListener('click', (event) => {
     const difficulty = document.querySelector('.generator__difficulty-button');
     const color = document.querySelector('.generator__color-button--active');
     const mood = document.querySelector('.generator__mood-button--active');
+    const submitButton = document.querySelector('.generator__submit');
 
     // создаем и заполняем обьект данными
     const forFind = {
@@ -103,8 +108,7 @@ document.addEventListener('click', (event) => {
           item.complexity === forFind.complexity &&
           item.mood === forFind.mood
         );
-      }) || console.log('не найдено');
-    //  generationsData[getRandomInt(generationsData.length)]
+      }) || generationsData[0];
 
     // Изменяем текст в элементах на нужный
     changeTextElement(
@@ -125,20 +129,24 @@ document.addEventListener('click', (event) => {
 
     let imagePath = '';
     if (isMobile) {
-      imagePath = `./assets/images/mobile/${colorName}.jpg`;
+      imagePath = `/images/mobile/${colorName}.jpg`;
     } else {
-      imagePath = `./assets/images/table/${colorName}.jpg`;
+      imagePath = `/images/table/${colorName}.jpg`;
     }
 
     share.style.backgroundImage = `url(${imagePath})`;
 
-    // Делаем видимфми данные
+    // Делаем видимыми данные
     document
       .querySelector('.generator__share-content')
       .classList.add('generator__share-content--visible');
     document
       .querySelector('.generator__share-popup')
       .classList.add('generator__share-popup--visible');
+
+    // Делаем кнопку сабмита неактивной и меняем текст
+    lastSelectedOptions = { ...getCurrentOptions() };
+    checkOptionsChanged();
   }
 
   // Обработчик кнопки переключения "как сделать" и "вернуться к идее"
@@ -362,6 +370,29 @@ function initializeRandomButtons() {
     const randomColorButton = colorButtons[getRandomInt(colorButtons.length)];
     randomColorButton.classList.add('generator__color-button--active');
   }
+
+  // Инициализируем lastSelectedOptions после установки всех параметров
+  lastSelectedOptions = getCurrentOptions();
+}
+
+// Функция для проверки изменений параметров
+export function checkOptionsChanged() {
+	const submitButton = document.querySelector('.generator__submit');
+  const currentOptions = getCurrentOptions();
+  const hasChanged =
+    JSON.stringify(currentOptions) !== JSON.stringify(lastSelectedOptions);
+
+  if (hasChanged) {
+    // Если параметры изменились, делаем её активной
+    submitButton.disabled = false;
+    submitButton.textContent = 'Получить идею';
+    isSubmitDisabled = false;
+  } else {
+		// Если параметры не изменились, делаем её не активной
+		submitButton.disabled = true;
+    submitButton.textContent = 'Поменяйте что-то в фильтрах';
+    isSubmitDisabled = true;
+	}
 }
 
 dragButton(difficultyTrack, difficultyButton, difficultyText);
