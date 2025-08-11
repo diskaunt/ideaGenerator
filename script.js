@@ -124,17 +124,8 @@ document.addEventListener('click', (event) => {
     const share = document.querySelector('.generator__share');
     const colorName = color.dataset.base;
 
-    // Определяем размер экрана для выбора правильной папки
-    const isMobile = window.innerWidth <= 768;
-
-    let imagePath = '';
-    if (isMobile) {
-      imagePath = `/images/mobile/${colorName}.jpg`;
-    } else {
-      imagePath = `/images/table/${colorName}.jpg`;
-    }
-
-    share.style.backgroundImage = `url(${imagePath})`;
+    share.classList.remove(`generator__share--${lastSelectedOptions.color}`);
+    share.classList.add(`generator__share--${colorName}`);
 
     // Делаем видимыми данные
     document
@@ -377,7 +368,7 @@ function initializeRandomButtons() {
 
 // Функция для проверки изменений параметров
 export function checkOptionsChanged() {
-	const submitButton = document.querySelector('.generator__submit');
+  const submitButton = document.querySelector('.generator__submit');
   const currentOptions = getCurrentOptions();
   const hasChanged =
     JSON.stringify(currentOptions) !== JSON.stringify(lastSelectedOptions);
@@ -388,11 +379,11 @@ export function checkOptionsChanged() {
     submitButton.textContent = 'Получить идею';
     isSubmitDisabled = false;
   } else {
-		// Если параметры не изменились, делаем её не активной
-		submitButton.disabled = true;
+    // Если параметры не изменились, делаем её не активной
+    submitButton.disabled = true;
     submitButton.textContent = 'Поменяйте что-то в фильтрах';
     isSubmitDisabled = true;
-	}
+  }
 }
 
 dragButton(difficultyTrack, difficultyButton, difficultyText);

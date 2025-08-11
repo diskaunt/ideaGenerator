@@ -1,7 +1,7 @@
 @font-face {
 	font-family: Ys-sans;
 	src: url('assets/fonts/Yandex_Sans/YandexSansDisplay-Regular.woff2') format('woff2'),
-    url('assets/fonts/Yandex_Sans/YandexSansDisplay-Regular.woff') format('woff');
+		url('assets/fonts/Yandex_Sans/YandexSansDisplay-Regular.woff') format('woff');
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -67,9 +67,6 @@ body {
 	line-height: 1.1em;
 	color: var(--text-color);
 	background-color: var(--main-bg-color);
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-rendering: optimizeLegibility;
 }
 
 /* Основной контейнер */
@@ -272,7 +269,8 @@ body {
 	height: calc(100% + 13px);
 	background-color: var(--main-bg-color);
 	transform: translateX(-50%);
-	clip-path: path("M70 100 L69.7036 19.892 C64.9519 19.892 57.6005 16.4491 52.6375 10.4944 C42.6567 -1.48088 24.4763 -2.10447 13.6983 9.15877 L5.79736 17.4155 C4.28369 18.9973 2.18938 19.892 0 19.892 L0 100 Z");
+	-webkit-clip-path: path('M70 100L69.7036 19.892C64.9519 19.892 57.6005 16.4491 52.6375 10.4944C42.6567 -1.48088 24.4763 -2.10447 13.6983 9.15877L5.79736 17.4155C4.28369 18.9973 2.18938 19.892 0 19.892L0 100Z');
+	clip-path: path('M70 100L69.7036 19.892C64.9519 19.892 57.6005 16.4491 52.6375 10.4944C42.6567 -1.48088 24.4763 -2.10447 13.6983 9.15877L5.79736 17.4155C4.28369 18.9973 2.18938 19.892 0 19.892L0 100Z');
 	z-index: -1;
 }
 
@@ -364,6 +362,23 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	transition: background-image ease-in-out 0.1s;
+}
+
+.generator__share--blue {
+	background-image: url(assets/images/mobile/blue.jpg);
+}
+
+.generator__share--green {
+	background-image: url(assets/images/mobile/green.jpg);
+}
+
+.generator__share--purple {
+	background-image: url(assets/images/mobile/purple.jpg);
+}
+
+.generator__share--turquoise {
+	background-image: url(assets/images/mobile/turquoise.jpg);
 }
 
 .generator__share-content {
@@ -577,7 +592,8 @@ body {
 		width: calc(100% + 11px);
 		height: 200%;
 		transform: translateX(-50%) rotate(90deg);
-		clip-path: path('M14.8791 0.9489C14.8791 0.5724 12.2834 11.881 7.84529 15.3346V15.3346C-1.13302 22.3209 -1.5885 35.734 6.8952 43.313L13.0605 48.822C14.21 49.855 14.8791 51.333 14.8791 52.24 L50 52 L50 1 Z');
+		--webkit-c-webkit-clip-path: path('M14.8791 0.9489C14.8791 0.5724 12.2834 11.881 7.84529 15.3346V15.3346C-1.13302 22.3209 -1.5885 35.734 6.8952 43.313L13.0605 48.822C14.21 49.855 14.8791 51.333 14.8791 52.24L50 52L50 1Z');
+		clip-path: path('M14.8791 0.9489C14.8791 0.5724 12.2834 11.881 7.84529 15.3346V15.3346C-1.13302 22.3209 -1.5885 35.734 6.8952 43.313L13.0605 48.822C14.21 49.855 14.8791 51.333 14.8791 52.24L50 52L50 1Z');
 	}
 
 	.generator__difficulty-icon-wrap {
@@ -611,6 +627,22 @@ body {
 		padding: 20px 20px;
 		justify-content: start;
 		background-image: url(assets/images/table/firstImage.jpg);
+	}
+
+	.generator__share--blue {
+		background-image: url(assets/images/table/blue.jpg) !important;
+	}
+
+	.generator__share--green {
+		background-image: url(assets/images/table/green.jpg) !important;
+	}
+
+	.generator__share--purple {
+		background-image: url(assets/images/table/purple.jpg) !important;
+	}
+
+	.generator__share--turquoise {
+		background-image: url(assets/images/table/turquoise.jpg) !important;
 	}
 
 	.generator__share-content {

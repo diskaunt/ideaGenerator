@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  // Базовый путь для GitHub Pages
+  base: '/ideaGenerator/',
+
   // Корневая папка проекта
   root: '.',
-
   // Настройки сервера разработки
   server: {
     port: 3000,
@@ -14,7 +16,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: true
+    sourcemap: true,
   },
 
   // Обработка статических файлов
