@@ -9,6 +9,7 @@ import {
   snapToEdge,
   changeTextElement,
   getCurrentOptions,
+	changeShareButton,
 } from './helpers.js';
 
 // Получаем все элементы
@@ -94,7 +95,7 @@ document.addEventListener('click', (event) => {
     const mood = document.querySelector('.generator__mood-button--active');
     const submitButton = document.querySelector('.generator__submit');
 
-    // создаем и заполняем обьект данными
+    // Создаем и заполняем обьект данными
     const forFind = {
       recipient: recipient.dataset.base,
       complexity: difficulty.dataset.base,
@@ -109,6 +110,10 @@ document.addEventListener('click', (event) => {
           item.mood === forFind.mood
         );
       }) || generationsData[0];
+
+
+		//
+    changeShareButton(newShare, 'description');
 
     // Изменяем текст в элементах на нужный
     changeTextElement(
@@ -142,21 +147,7 @@ document.addEventListener('click', (event) => {
 
   // Обработчик кнопки переключения "как сделать" и "вернуться к идее"
   if (target.classList.contains('generator__share-button')) {
-    const button = document.querySelector('.generator__share-button');
-    const title = document.querySelector('.generator__share-title');
-    const content = document.querySelector('.generator__share-text');
-
-    if (button.dataset.base === 'description') {
-      changeTextElement(title, 'Как сделать?');
-      changeTextElement(content, newShare.actions);
-      changeTextElement(button, 'Вернуться к идее');
-      button.dataset.base = 'actions';
-    } else {
-      changeTextElement(title, newShare.title);
-      changeTextElement(content, newShare.description);
-      changeTextElement(button, 'Как сделать');
-      button.dataset.base = 'description';
-    }
+    changeShareButton(newShare);
   }
 });
 
@@ -229,6 +220,7 @@ export function dragButton(track, button, text) {
 
       // Выбираем новую координату с учетом максмальной и минимальной
       newCoord = Math.max(minCoord, Math.min(newCoord, maxCoord));
+
       if (isHorizontal) {
         const boxShadowMin = '0 -24px 12px #ABF59B';
         const boxShadowMax = '0 -24px 12px #B965FF';
@@ -276,16 +268,30 @@ export function dragButton(track, button, text) {
     });
 
     document.addEventListener('touchmove', (event) => {
-      event.preventDefault();
       if (!isDragging) return;
-      let newCoord = isHorizontal
+      newCoord = isHorizontal
         ? event.touches[0].clientX - trackRect.left - shift
         : event.touches[0].clientY - trackRect.top - shift;
       newCoord = Math.max(minCoord, Math.min(newCoord, maxCoord));
+
       if (isHorizontal) {
+        const boxShadowMin = '0 -24px 12px #ABF59B';
+        const boxShadowMax = '0 -24px 12px #B965FF';
         button.style.left = newCoord + 'px';
+        if (newCoord > maxCoord / 2) {
+          button.style.boxShadow = boxShadowMax;
+        } else {
+          button.style.boxShadow = boxShadowMin;
+        }
       } else {
+        const boxShadowMin = '0 -12px 12px #ABF59B';
+        const boxShadowMax = '0 -12px 12px #B965FF';
         button.style.top = newCoord + 'px';
+        if (newCoord > maxCoord / 2) {
+          button.style.boxShadow = boxShadowMin;
+        } else {
+          button.style.boxShadow = boxShadowMax;
+        }
       }
     });
 
@@ -361,9 +367,6 @@ function initializeRandomButtons() {
     const randomColorButton = colorButtons[getRandomInt(colorButtons.length)];
     randomColorButton.classList.add('generator__color-button--active');
   }
-
-  // Инициализируем lastSelectedOptions после установки всех параметров
-  lastSelectedOptions = getCurrentOptions();
 }
 
 // Функция для проверки изменений параметров

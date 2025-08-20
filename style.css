@@ -25,7 +25,7 @@
 	/* Размеры и отступы */
 	--border-radius: 8px;
 	--mobile-gap: 8px;
-	--difficulty-track-margin: 12px;
+	--difficulty-track-margin: 15px;
 
 	/* Z-index слои */
 	--z-dropdown: 1000;
@@ -178,7 +178,7 @@ body {
 	border-radius: 100px;
 	padding: 14px;
 	cursor: pointer;
-	transition: all ease-in-out 0.3s;
+	transition: flex-grow ease-in-out 0.3s;
 }
 
 .generator__mood-button--active {
@@ -232,7 +232,7 @@ body {
 	content: '';
 	position: absolute;
 	top: 4px;
-	left: -12px;
+	left: calc(-1 * var(--difficulty-track-margin));
 	width: calc(100% + 2 * var(--difficulty-track-margin));
 	height: 50%;
 	background-color: var(--main-bg-color);
@@ -263,10 +263,10 @@ body {
 .generator__difficulty-button::before {
 	content: '';
 	position: absolute;
-	left: 16px;
-	top: -13px;
-	width: 200%;
-	height: calc(100% + 13px);
+	top: -15px;
+	left: 55%;
+	width: 70px;
+	height: 42px;
 	background-color: var(--main-bg-color);
 	transform: translateX(-50%);
 	-webkit-clip-path: path('M70 100L69.7036 19.892C64.9519 19.892 57.6005 16.4491 52.6375 10.4944C42.6567 -1.48088 24.4763 -2.10447 13.6983 9.15877L5.79736 17.4155C4.28369 18.9973 2.18938 19.892 0 19.892L0 100Z');
@@ -289,12 +289,12 @@ body {
 	height: 10px;
 }
 
-.generator__difficulty-icon-wrap {
+.generator__difficulty-button-icon {
 	position: absolute;
-	top: -20px;
+	top: calc( -1 * var(--difficulty-track-margin));
 	left: 55%;
-	width: 200%;
-	height: 100%;
+	width: 70px;
+	height: 21px;
 	transform: translateX(-50%);
 }
 
@@ -546,14 +546,15 @@ body {
 	}
 
 	.generator__difficulty-track {
+		justify-self: end;
 		display: flex;
 		justify-items: end;
-		margin: var(--difficulty-track-margin) 14px;
+		margin: var(--difficulty-track-margin) 12px;
 	}
 
 	.generator__difficulty-track::after {
-		top: -12px;
-		left: 6px;
+		top: calc( -1 * var(--difficulty-track-margin));
+		left: 10px;
 		width: 50%;
 		height: calc(100% + 2 * var(--difficulty-track-margin));
 		border-top: none;
@@ -577,6 +578,7 @@ body {
 	}
 
 	.generator__difficulty-title {
+		max-width: 115px;
 		grid-area: title;
 		margin: 12px 12px 0;
 	}
@@ -587,18 +589,21 @@ body {
 	}
 
 	.generator__difficulty-button::before {
-		left: 17px;
-		top: -13px;
-		width: calc(100% + 11px);
-		height: 200%;
-		transform: translateX(-50%) rotate(90deg);
-		--webkit-c-webkit-clip-path: path('M14.8791 0.9489C14.8791 0.5724 12.2834 11.881 7.84529 15.3346V15.3346C-1.13302 22.3209 -1.5885 35.734 6.8952 43.313L13.0605 48.822C14.21 49.855 14.8791 51.333 14.8791 52.24L50 52L50 1Z');
-		clip-path: path('M14.8791 0.9489C14.8791 0.5724 12.2834 11.881 7.84529 15.3346V15.3346C-1.13302 22.3209 -1.5885 35.734 6.8952 43.313L13.0605 48.822C14.21 49.855 14.8791 51.333 14.8791 52.24L50 52L50 1Z');
+		left: 55%;
+		top: -9px;
+		width: 70px;
+		height: 42px;
+		background-color: var(--main-bg-color);
+		/* этот путь был взят от вертикальной иконки, так что не подходит и при перевороте ломается положение */
+		/* --webkit-c-webkit-clip-path: path('M14.8791 0.9489C14.8791 0.5724 12.2834 11.881 7.84529 15.3346V15.3346C-1.13302 22.3209 -1.5885 35.734 6.8952 43.313L13.0605 48.822C14.21 49.855 14.8791 51.333 14.8791 52.24L50 52L50 1Z');
+		clip-path: path('M14.8791 0C14.8791 0.5724 12.2834 11.881 7.84529 15.3346V15.3346C-1.13302 22.3209 -1.5885 35.734 6.8952 43.313L13.0605 48.822C14.21 49.855 14.8791 51.333 14.8791 100L50 100L50 0Z'); */
+		--webkit-c-webkit-clip-path: path('M70 100L69.7036 19.892C64.9519 19.892 57.6005 16.4491 52.6375 10.4944C42.6567 -1.48088 24.4763 -2.10447 13.6983 9.15877L5.79736 17.4155C4.28369 18.9973 2.18938 19.892 0 19.892L0 100Z');
+		clip-path: path('M70 100L69.7036 19.892C64.9519 19.892 57.6005 16.4491 52.6375 10.4944C42.6567 -1.48088 24.4763 -2.10447 13.6983 9.15877L5.79736 17.4155C4.28369 18.9973 2.18938 19.892 0 19.892L0 100Z');
 	}
 
-	.generator__difficulty-icon-wrap {
+	.generator__difficulty-button-icon {
 		position: absolute;
-		top: -12px;
+		top: -9px;
 		left: 55%;
 		transform: translateX(-50%);
 	}
@@ -785,6 +790,11 @@ body {
 		font-size: 3.43em;
 		padding: 0 15px;
 		padding-bottom: 9px;
+	}
+
+	.generator__difficulty-button {
+		width: 28px;
+		height: 28px;
 	}
 
 	.generator__color {

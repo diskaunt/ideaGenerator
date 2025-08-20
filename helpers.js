@@ -5,7 +5,6 @@ export function getRandomInt(max) {
 
 // Функция для добавления текста к кнопке настроения
 export function addTextToElement(button, newText) {
-  // Создаём новый span для активной кнопки
   const span = document.createElement('span');
   span.style.textAlign = 'center';
   span.style.width = '100%';
@@ -51,14 +50,9 @@ export function snapToEdge(button, text, newCoord, maxCoord, isHorizontal) {
       button.dataset.base = 'Лёгкий';
     }
   }
-
-  // Проверяем изменения параметров после изменения сложности
-  // Создаем событие для уведомления об изменении сложности
-  // const changeEvent = new CustomEvent('difficultyChanged');
-  // document.dispatchEvent(changeEvent);
 }
 
-// функция изменяющая текст в окне в зависимости от выбранного человека
+// Функция изменяющая текст в окне в зависимости от выбранного человека
 export function rectangleRecipeChanger(newText) {
   const recipientRectagleText = document.querySelector(
     '.generator__recipient-rectangle-text'
@@ -85,7 +79,7 @@ export function rectangleRecipeChanger(newText) {
   }
 }
 
-// функция имитирующая печатную машинку
+// Функция имитирующая печатную машинку
 export function printText(el, timeout) {
   // Останавливаем предыдущую анимацию если она есть
   if (el.printTimeout) {
@@ -101,21 +95,45 @@ export function printText(el, timeout) {
   function print__fn() {
     if (i <= text.length) {
       el.innerHTML = text.substr(0, i);
-      // Сохраняем timeout ID для возможности остановки
       el.printTimeout = setTimeout(print__fn, letterTimeout);
     }
     i++;
   }
 }
 
+// Функция изменения кнопки "как сделать" и "вернуться к идее"
+export function changeShareButton(newShare, description) {
+  const button = document.querySelector('.generator__share-button');
+  const title = document.querySelector('.generator__share-title');
+  const content = document.querySelector('.generator__share-text');
+
+  if (
+    description
+      ? description === 'actions'
+      : button.dataset.base === 'description'
+  ) {
+    changeTextElement(title, 'Как сделать?');
+    changeTextElement(content, newShare.actions);
+    changeTextElement(button, 'Вернуться к идее');
+    button.dataset.base = 'actions';
+  } else if (
+    description
+      ? description === 'description'
+      : button.dataset.base === 'actions'
+  ) {
+    changeTextElement(title, newShare.title);
+    changeTextElement(content, newShare.description);
+    changeTextElement(button, 'Как сделать');
+    button.dataset.base = 'description';
+  }
+}
+
 // Функция для переключения активного состояния кнопок
 export function toggleActiveButton(clickedButton, buttonSelector, activeClass) {
-  // Убираем активный класс у всех кнопок этого типа
   document.querySelectorAll(buttonSelector).forEach((button) => {
     button.classList.remove(activeClass);
   });
 
-  // Добавляем активный класс к нажатой кнопке
   clickedButton.classList.add(activeClass);
 }
 

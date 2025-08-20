@@ -5,7 +5,7 @@
   "description": "Генератор идей для подарков",
   "main": "index.html",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host --port 8888",
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist"
